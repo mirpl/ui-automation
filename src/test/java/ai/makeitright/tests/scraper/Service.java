@@ -3,13 +3,19 @@ package ai.makeitright.tests.scraper;
 
 import ai.makeitright.models.Realtor;
 import ai.makeitright.utilities.DriverConfig;
+import ai.makeitright.utilities.Methods;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -32,7 +38,10 @@ public class Service extends DriverConfig {
     }
 
     @Test
-    public void getRealtors() {
+    public void getRealtors() throws IOException {
+        BufferedWriter writer ;
+        String outFileName = "leads.csv";
+
         String baseTargetURL = BaseURL + City + "_" + State;
         System.out.println("baseTargetURL: " + baseTargetURL);
 
@@ -41,6 +50,9 @@ public class Service extends DriverConfig {
 
         List<Realtor> realtors = new ArrayList<Realtor>();
         String targetURL;
+        writer = new BufferedWriter(new FileWriter(outFileName, true));
+        CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT
+                .withHeader("Name", "Phone", "City", "State"));
 
         for (int page = 0; page < totalPages; page++) {
             targetURL = baseTargetURL + "/pg-" + page;
@@ -50,6 +62,7 @@ public class Service extends DriverConfig {
 
             List<WebElement> contactInfoElements = driver.findElements(By.xpath("//a[@id='call_inquiry_cta']"));
             System.out.println("contactInfoElements size: " + contactInfoElements.size());
+
 
             for (WebElement contactInfo : contactInfoElements) {
                 String cityState = contactInfo.getAttribute("data-agent-address");
@@ -62,8 +75,14 @@ public class Service extends DriverConfig {
                 );
                 System.out.println("realtor: " + realtor);
                 realtors.add(realtor);
+                csvPrinter.printRecord(realtor.getName(),
+                        realtor.getPhoneNumber(),
+                        realtor.getCity(),
+                        realtor.getState());
             }
         }
+        csvPrinter.flush();
+        csvPrinter.close();
 
         System.setProperty("output", String.format("{\"result\": %s}", gson.toJson(realtors)));
 
