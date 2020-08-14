@@ -4,6 +4,7 @@ package ai.makeitright.tests.scraper;
 import ai.makeitright.models.Realtor;
 import ai.makeitright.utilities.DriverConfig;
 import ai.makeitright.utilities.Methods;
+import ai.makeitright.utilities.Reporter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.commons.csv.CSVFormat;
@@ -41,7 +42,8 @@ public class Service extends DriverConfig {
     public void getRealtors() throws IOException {
         BufferedWriter writer ;
         String outFileName = "leads.csv";
-
+        String workspacePath = System.getProperty("ARTIFACTS_PATH");
+        String outFilePath = workspacePath + System.getProperty("file.separator") + outFileName;
         String baseTargetURL = BaseURL + City + "_" + State;
         System.out.println("baseTargetURL: " + baseTargetURL);
 
@@ -50,7 +52,7 @@ public class Service extends DriverConfig {
 
         List<Realtor> realtors = new ArrayList<Realtor>();
         String targetURL;
-        writer = new BufferedWriter(new FileWriter(outFileName, true));
+        writer = new BufferedWriter(new FileWriter(outFilePath,true));
         CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT
                 .withHeader("Name", "Phone", "City", "State"));
 
