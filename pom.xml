@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ai.makeitright</groupId>
-    <artifactId>PowerFarmProject</artifactId>
+    <artifactId>RealtorLeadGen</artifactId>
     <version>1.0.0</version>
-    <name>PowerFarmProject</name>
+    <name>RealtorLeadGen</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
