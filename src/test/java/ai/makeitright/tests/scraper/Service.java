@@ -49,6 +49,7 @@ public class Service extends DriverConfig {
         
         int totalPages = getTotalPages(baseTargetURL);
         System.out.println("totalPages: " + totalPages);
+        TimeUnit.MINUTES.sleep(6);
 
         List<Realtor> realtors = new ArrayList<Realtor>();
         String targetURL;
@@ -87,9 +88,7 @@ public class Service extends DriverConfig {
         csvPrinter.close();
 
         System.setProperty("output", String.format("{\"result\": %s}", gson.toJson(realtors)));
-
-        Thread.sleep(200000);
-        
+     
         System.out.println("output: " + gson.fromJson(System.getProperty("output"), Map.class));
     }
 
