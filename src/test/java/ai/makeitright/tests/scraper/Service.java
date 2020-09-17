@@ -45,7 +45,6 @@ public class Service extends DriverConfig {
         String workspacePath = System.getProperty("ARTIFACTS_PATH");
         String outFilePath = workspacePath + System.getProperty("file.separator") + outFileName;
         String baseTargetURL = BaseURL + City + "_" + State;
-        wait(100);
         System.out.println("baseTargetURL: " + baseTargetURL);
 
         int totalPages = getTotalPages(baseTargetURL);
