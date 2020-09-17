@@ -88,7 +88,7 @@ public class Service extends DriverConfig {
 
         System.setProperty("output", String.format("{\"result\": %s}", gson.toJson(realtors)));
 
-        TimeUnit.MINUTES.sleep(10);
+        Thread.sleep(200000);
         
         System.out.println("output: " + gson.fromJson(System.getProperty("output"), Map.class));
     }
