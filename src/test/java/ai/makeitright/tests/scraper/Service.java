@@ -59,7 +59,7 @@ public class Service extends DriverConfig {
         for (int page = 0; page < totalPages; page++) {
             targetURL = baseTargetURL + "/pg-" + page;
             System.out.println("targetURL: " + targetURL);
-            Thread.sleep(100000);
+
             driver.navigate().to(targetURL);
 
             List<WebElement> contactInfoElements = driver.findElements(By.xpath("//a[@id='call_inquiry_cta']"));
