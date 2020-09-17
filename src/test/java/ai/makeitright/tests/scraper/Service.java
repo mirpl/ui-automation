@@ -46,7 +46,8 @@ public class Service extends DriverConfig {
         String outFilePath = workspacePath + System.getProperty("file.separator") + outFileName;
         String baseTargetURL = BaseURL + City + "_" + State;
         System.out.println("baseTargetURL: " + baseTargetURL);
-
+        TimeUnit.MINUTES.sleep(10);
+        
         int totalPages = getTotalPages(baseTargetURL);
         System.out.println("totalPages: " + totalPages);
 
