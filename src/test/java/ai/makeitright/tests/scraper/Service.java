@@ -49,7 +49,11 @@ public class Service extends DriverConfig {
         
         int totalPages = getTotalPages(baseTargetURL);
         System.out.println("totalPages: " + totalPages);
-        TimeUnit.MINUTES.sleep(6);
+        try {
+            Thread.sleep(100000);                 //1000 milliseconds is one second.
+        } catch(InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
 
         List<Realtor> realtors = new ArrayList<Realtor>();
         String targetURL;
