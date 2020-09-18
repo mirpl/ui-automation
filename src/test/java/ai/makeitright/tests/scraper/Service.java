@@ -55,6 +55,7 @@ public class Service extends DriverConfig {
             Thread.currentThread().interrupt();
         }
 
+        
         List<Realtor> realtors = new ArrayList<Realtor>();
         String targetURL;
         writer = new BufferedWriter(new FileWriter(outFilePath,true));
